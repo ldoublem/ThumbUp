@@ -19,8 +19,8 @@
 
         <com.ldoublem.thumbUplib.ThumbUpView
             android:id="@+id/tpv1"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             />
 
         <TextView
@@ -86,6 +86,21 @@
             android:text="140"
             android:textSize="25sp"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_all_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="like"
+        android:text="like"/>
+
+
+    <Button
+        android:id="@+id/btn_all_unlike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="unlike"
+        android:text="unlike"/>
 
 
 </LinearLayout>

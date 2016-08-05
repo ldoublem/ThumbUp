@@ -32,7 +32,7 @@ public class ThumbUpView extends View {
 
     private float loveSize = 0.8f;
 
-    private LikeType mLikeType = LikeType.broken;
+    private LikeType mUnLikeType = LikeType.broken;
     private int edgeColor = Color.BLACK;
     private int fillColor = Color.rgb(229, 115, 108);
     private int cracksColor = Color.WHITE;
@@ -47,8 +47,8 @@ public class ThumbUpView extends View {
     private float mAnimatedBrokenValue = 0f;
     float MaxSize = 1.2f;
 
-    public void setLikeType(LikeType type) {
-        this.mLikeType = type;
+    public void setUnLikeType(LikeType type) {
+        this.mUnLikeType = type;
     }
 
 
@@ -92,10 +92,10 @@ public class ThumbUpView extends View {
             int type = typedArray.getInteger(R.styleable.ThumbUpView_unlikeType, 0);
 
             if (type == 0) {
-                mLikeType = LikeType.broken;
+                mUnLikeType = LikeType.broken;
 
             } else {
-                mLikeType = LikeType.unlike;
+                mUnLikeType = LikeType.unlike;
 
 
             }
@@ -344,8 +344,8 @@ public class ThumbUpView extends View {
         rectFloveBg.right = rectFBg.centerX() + (rectFBg.width() / 2f) * loveSize;//* 0.5f;
 
 
-        mPaintLike.setStrokeWidth(rectFBg.width()/20+dip2px(1));
-        mPaint.setStrokeWidth(rectFBg.width()/40);
+        mPaintLike.setStrokeWidth(rectFBg.width() / 20 + dip2px(1));
+        mPaint.setStrokeWidth(rectFBg.width() / 40);
 
 
 //        if (mAnimatedBrokenValue == 0||mAnimatedBrokenValue==1) {
@@ -412,19 +412,50 @@ public class ThumbUpView extends View {
 
     }
 
+    public void Like() {
 
-    public void startLikeAnim(LikeType like) {
+
+        if (mAnimatedLikeValue == 0 || mAnimatedLikeValue == MaxSize) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    startLikeAnim(LikeType.like);
+                }
+            });
+        }
+
+    }
+
+    public void UnLike() {
+        if (mAnimatedLikeValue == MaxSize
+                ) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    startLikeAnim(mUnLikeType);
+                }
+            });
+        }
+    }
+
+
+    private void startLikeAnim(LikeType like) {
 
         if (like == LikeType.unlike) {
             startViewAnim(0f, 1f, 200, like);
+            setTag(false);
 
         } else if (like == LikeType.like) {
+            setTag(true);
             startViewAnim(0f, 1f, 200, like);
 
         } else if (like == LikeType.broken) {
+            setTag(false);
             startViewAnim(0f, 1f, 400, like);
-
         }
+        if (mOnThumbUp != null)
+            mOnThumbUp.like((Boolean) getTag());
+
 
     }
 
@@ -507,20 +538,16 @@ public class ThumbUpView extends View {
                 if (rectFloveBg.contains(event.getX(), event.getY())) {
                     if (getTag() == null || !(Boolean) getTag()) {
                         startLikeAnim(LikeType.like);
-                        setTag(true);
-                        if (mOnThumbUp != null)
-                            mOnThumbUp.like(true);
+
                     } else if ((Boolean) getTag()) {
 
-                        if (mLikeType == LikeType.broken) {
+                        if (mUnLikeType == LikeType.broken) {
                             startLikeAnim(LikeType.broken);
-                        } else if (mLikeType == LikeType.unlike) {
+                        } else if (mUnLikeType == LikeType.unlike) {
                             startLikeAnim(LikeType.unlike);
 
                         }
-                        setTag(false);
-                        if (mOnThumbUp != null)
-                            mOnThumbUp.like(false);
+
                     }
 
                 }

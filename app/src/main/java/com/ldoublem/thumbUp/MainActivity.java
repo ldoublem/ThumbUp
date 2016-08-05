@@ -3,6 +3,7 @@ package com.ldoublem.thumbUp;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.ldoublem.thumbUplib.ThumbUpView;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         tv3 = (TextView) findViewById(R.id.tv3);
 
 
-        tpv3.setLikeType(ThumbUpView.LikeType.broken);
+        tpv3.setUnLikeType(ThumbUpView.LikeType.broken);
         tpv3.setCracksColor(Color.WHITE);
         tpv3.setFillColor(Color.rgb(11, 200, 77));
         tpv3.setEdgeColor(Color.rgb(33, 3, 219));
@@ -67,9 +68,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
+    }
+    public void like(View v)
+    {
+        tpv1.Like();
+        tpv2.Like();
+        tpv3.Like();
 
     }
+
+    public void unlike(View v)
+    {
+        tpv1.UnLike();
+        tpv2.UnLike();
+        tpv3.UnLike();
+    }
+
+
+
+
 }
