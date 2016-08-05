@@ -25,7 +25,7 @@ compile 'com.ldoublem.thumbUplib:ThumbUplib:0.1'
 ```
 ##java
 ```
-        mThumbUpView.setLikeType(ThumbUpView.LikeType.broken);
+        mThumbUpView.setUnLikeType(ThumbUpView.LikeType.broken);
         mThumbUpView.setCracksColor(Color.rgb(22, 33, 44));
         mThumbUpView.setFillColor(Color.rgb(11, 200, 77));
         mThumbUpView.setEdgeColor(Color.rgb(33, 3, 219));
@@ -34,6 +34,8 @@ compile 'com.ldoublem.thumbUplib:ThumbUplib:0.1'
             public void like(boolean like) {
             }
         });
+        mThumbUpView.Like();
+        mThumbUpView.UnLike();
 ```
 ## About me
 
