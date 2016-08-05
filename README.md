@@ -8,7 +8,7 @@ A nice thumb up control
 
 ##Gradle
 ```
-compile 'com.ldoublem.thumbUplib:ThumbUplib:0.1'
+compile 'com.ldoublem.thumbUplib:ThumbUplib:0.2'
 ```
 
 ##Usage  xml
