@@ -112,14 +112,13 @@ public class ThumbUpView extends View {
         mPaint.setAntiAlias(true);
 
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(dip2px(1));
+
 
         mPaintLike = new Paint();
         mPaintLike.setAntiAlias(true);
 
 
         mPaintLike.setStyle(Paint.Style.FILL);
-        mPaintLike.setStrokeWidth(dip2px(3f));
 
 
         mPaintBrokenLine = new Paint();
@@ -215,7 +214,7 @@ public class ThumbUpView extends View {
 
         mBitmapBrokenLeftLove = Bitmap.createBitmap(getMeasuredWidth(), (int) lastY, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(mBitmapBrokenLeftLove);
-        canvas.rotate(-1*mBrokenAngle * mAnimatedBrokenValue, lastX, lastY);
+        canvas.rotate(-1 * mBrokenAngle * mAnimatedBrokenValue, lastX, lastY);
 
         Path path = new Path();
         path.moveTo((float) (0.5 * realWidth) + rectFlove.left, (float) (0.17 * realHeight) + rectFlove.top);
@@ -334,6 +333,7 @@ public class ThumbUpView extends View {
         mPaint.setColor(edgeColor);
         mPaintLike.setColor(fillColor);
         mPaintBrokenLine.setColor(cracksColor);
+
         rectFBg = new RectF(0, 0,
                 getMeasuredWidth(),
                 getMeasuredHeight());
@@ -344,7 +344,13 @@ public class ThumbUpView extends View {
         rectFloveBg.right = rectFBg.centerX() + (rectFBg.width() / 2f) * loveSize;//* 0.5f;
 
 
+        mPaintLike.setStrokeWidth(rectFBg.width()/20+dip2px(1));
+        mPaint.setStrokeWidth(rectFBg.width()/40);
+
+
+//        if (mAnimatedBrokenValue == 0||mAnimatedBrokenValue==1) {
         drawLove(canvas, mPaint, 1f);
+//        }
         drawLove(canvas, mPaintLike, mAnimatedLikeValue);
 
         if (mAnimatedBrokenValue > 0 && mAnimatedBrokenValue < 0.5f) {
@@ -353,17 +359,14 @@ public class ThumbUpView extends View {
         } else if (mAnimatedBrokenValue >= 0.5f && mAnimatedBrokenValue < 0.75f) {
             mAnimatedLikeValue = 0f;
             float v = (mAnimatedBrokenValue - 0.5f) / 0.25f;
-
             drawBrokenLove(canvas, mAnimatedBrokenValue);
-        } else if (mAnimatedBrokenValue >= 0.75f && mAnimatedBrokenValue <= 1f) {
-//            drawBrokenLove(canvas);
-//            drawBrokenLove(canvas, mAnimatedBrokenValue);
+        } else if (mAnimatedBrokenValue >= 0.75f && mAnimatedBrokenValue < 1f) {
             float v = (mAnimatedBrokenValue - 0.75f) / 0.25f;
-
             drawDrops(canvas, v);
 
 
         }
+
 
         canvas.restore();
     }
@@ -394,8 +397,6 @@ public class ThumbUpView extends View {
                 mPaintLike
 
         );
-
-
 
 
         canvas.drawCircle(rectFlove.centerX() +

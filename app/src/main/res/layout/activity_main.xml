@@ -19,8 +19,8 @@
 
         <com.ldoublem.thumbUplib.ThumbUpView
             android:id="@+id/tpv1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             />
 
         <TextView
@@ -39,13 +39,11 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-
         android:padding="10dp">
 
         <com.ldoublem.thumbUplib.ThumbUpView
             android:id="@+id/tpv2"
             android:layout_width="50dp"
-
             android:layout_height="50dp"
             app:cracksColor="#33475f"
             app:edgeColor="#9d55b8"
