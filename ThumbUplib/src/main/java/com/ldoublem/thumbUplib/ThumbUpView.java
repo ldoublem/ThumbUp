@@ -206,10 +206,10 @@ public class ThumbUpView extends View {
         float fristY = (float) (0.17 * realHeight) + rectFlove.top;
         float lastX = (float) (0.5 * realWidth) + rectFlove.left;
         float lastY = (float) (realHeight * 0.8 + rectFlove.top);
-        float secondX = lastX + realWidth / 10f;
+        float secondX = lastX + realWidth / 14f;
         float secondY = fristY + (lastY - fristY) / 4f;
-        float thirdX = lastX - realWidth / 10f;
-        float thirdY = fristY + (lastY - fristY) / 2f;
+        float thirdX = lastX - realWidth / 12f;
+        float thirdY = fristY + (lastY - fristY) / 2.5f;
 
 //        if (mBitmapBrokenLeftLove == null) {
 
@@ -293,12 +293,12 @@ public class ThumbUpView extends View {
         float lastY = (float) (realHeight * 0.8 + rectFlove.top);
 
 
-        float secondX = lastX + realWidth / 10f;
+        float secondX = lastX + realWidth / 14f;
         float secondY = fristY + (lastY - fristY) / 4f;
 
 
-        float thirdX = lastX - realWidth / 10f;
-        float thirdY = fristY + (lastY - fristY) / 2f;
+        float thirdX = lastX - realWidth / 12f;
+        float thirdY = fristY + (lastY - fristY) / 2.5f;
 
 
         Path line = new Path();
@@ -395,19 +395,7 @@ public class ThumbUpView extends View {
 
         );
 
-//        if (mAnimatedBrokenValue > 0.5f) {
-//
-//            canvas.drawCircle(rectFlove.centerX() -
-//                            rectFlove.width() / 4-dip2px(8),
-//                    rectFlove.centerY() + rectFlove.height() / 10 +
-//                            rectFlove.height() / 3 * mAnimatedBrokenValue,
-//                    dip2px(3)+dip2px(2)* (1 - mAnimatedBrokenValue),
-//                    mPaintLike
-//
-//            );
-//
-//
-//        }
+
 
 
         canvas.drawCircle(rectFlove.centerX() +

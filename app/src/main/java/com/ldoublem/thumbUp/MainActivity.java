@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         tpv3.setLikeType(ThumbUpView.LikeType.broken);
-        tpv3.setCracksColor(Color.rgb(22, 33, 44));
+        tpv3.setCracksColor(Color.WHITE);
         tpv3.setFillColor(Color.rgb(11, 200, 77));
         tpv3.setEdgeColor(Color.rgb(33, 3, 219));
         tpv3.setOnThumbUp(new ThumbUpView.OnThumbUp() {
