@@ -6,6 +6,11 @@ A nice thumb up control
 #Preview
 ![gif](https://github.com/ldoublem/ThumbUp/blob/master/screenShot/shot.gif)
 
+##Gradle
+```
+compile 'com.ldoublem.thumbUplib:ThumbUplib:0.1'
+```
+
 ##Usage  xml
 ```
    <com.ldoublem.thumbUplib.ThumbUpView
