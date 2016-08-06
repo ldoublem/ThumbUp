@@ -160,7 +160,7 @@ public class ThumbUpView extends View {
     RectF rectFloveBg
             = new RectF();
 
-    private void drawLove(Canvas canvas, Paint mPaint, float mAnimatedValue) {
+    private void drawLove(Canvas canvas, Paint mPaint, float mAnimatedValue, boolean fill) {
 
 
         if (mAnimatedValue - 1 > (MaxSize - 1) / 2f) {
@@ -178,14 +178,22 @@ public class ThumbUpView extends View {
         float realHeight = rectFlove.height();
         rectFlove.top = rectFlove.top + realHeight * (1 - 0.8f) / 2f;
         Path path = new Path();
-        path.moveTo((float) (0.5 * realWidth) + rectFlove.left, (float) (0.17 * realHeight) + rectFlove.top);
+
+        float startYScale = 0;
+        if (fill) {
+            startYScale = 0.17f;
+        } else {
+            startYScale = 0.185f;
+        }
+
+        path.moveTo((float) (0.5 * realWidth) + rectFlove.left, (float) (startYScale * realHeight) + rectFlove.top);
         path.cubicTo((float) (0.15 * realWidth) + rectFlove.left, (float) (-0.35 * realHeight + rectFlove.top),
                 (float) (-0.4 * realWidth) + rectFlove.left, (float) (0.45 * realHeight) + rectFlove.top,
                 (float) (0.5 * realWidth) + rectFlove.left, (float) (realHeight * 0.8 + rectFlove.top));
 //        path.moveTo( (float) (0.5 * realWidth) + rectFlove.left, (float) (realHeight * 0.8 + rectFlove.top));
         path.cubicTo((float) (realWidth + 0.4 * realWidth) + rectFlove.left, (float) (0.45 * realHeight) + rectFlove.top,
                 (float) (realWidth - 0.15 * realWidth) + rectFlove.left, (float) (-0.35 * realHeight) + rectFlove.top,
-                (float) (0.5 * realWidth) + rectFlove.left, (float) (0.17 * realHeight) + rectFlove.top);
+                (float) (0.5 * realWidth) + rectFlove.left, (float) (startYScale * realHeight) + rectFlove.top);
         path.close();
         canvas.drawPath(path, mPaint);
     }
@@ -349,9 +357,9 @@ public class ThumbUpView extends View {
 
 
 //        if (mAnimatedBrokenValue == 0||mAnimatedBrokenValue==1) {
-        drawLove(canvas, mPaint, 1f);
+        drawLove(canvas, mPaint, 1f, false);
 //        }
-        drawLove(canvas, mPaintLike, mAnimatedLikeValue);
+        drawLove(canvas, mPaintLike, mAnimatedLikeValue, true);
 
         if (mAnimatedBrokenValue > 0 && mAnimatedBrokenValue < 0.5f) {
             float v = mAnimatedBrokenValue / 0.5f;
