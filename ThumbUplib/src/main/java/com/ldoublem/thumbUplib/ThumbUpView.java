@@ -600,7 +600,7 @@ public class ThumbUpView extends View {
     }
 
 
-    public void  setLikeWithOutAnim()
+    public void  setLike()
     {
         mAnimatedLikeValue=MaxSize;
         mAnimatedBrokenValue=0f;
@@ -609,7 +609,7 @@ public class ThumbUpView extends View {
 
     }
 
-    public void setUnlikeWithOutAnim()
+    public void setUnlike()
     {
         mAnimatedLikeValue=0f;
         mAnimatedBrokenValue=0f;
