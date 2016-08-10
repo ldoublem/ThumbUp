@@ -16,6 +16,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by lumingmin on 16/8/3.
  */
@@ -25,7 +27,7 @@ public class ThumbUpView extends View {
 
     private Paint mPaint;
     private Paint mPaintLike;
-
+    private int mTagKey ;
     private Paint mPaintBrokenLine;
 
     private RectF rectFBg;
@@ -46,6 +48,21 @@ public class ThumbUpView extends View {
     private float mAnimatedLikeValue = 0f;
     private float mAnimatedBrokenValue = 0f;
     float MaxSize = 1.2f;
+
+
+
+
+    private WeakReference<View> mThumbUpView;
+
+    public void setSearchView(View searchView) {
+        this.mThumbUpView = new WeakReference<>(searchView);
+    }
+
+    public View getSearchView() {
+        return mThumbUpView != null ? mThumbUpView.get() : null;
+    }
+
+
 
     public void setUnLikeType(LikeType type) {
         this.mUnLikeType = type;
@@ -108,6 +125,8 @@ public class ThumbUpView extends View {
 
     private void initPaint() {
 
+        mTagKey=getId();
+        setSearchView(this);
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
 
@@ -451,18 +470,20 @@ public class ThumbUpView extends View {
 
         if (like == LikeType.unlike) {
             startViewAnim(0f, 1f, 200, like);
-            setTag(false);
+//            setTag(false,"tag");
+
+            getSearchView().setTag(mTagKey, false);
 
         } else if (like == LikeType.like) {
-            setTag(true);
+            getSearchView().setTag(mTagKey, true);
             startViewAnim(0f, 1f, 200, like);
 
         } else if (like == LikeType.broken) {
-            setTag(false);
+            getSearchView().setTag(mTagKey, false);
             startViewAnim(0f, 1f, 400, like);
         }
         if (mOnThumbUp != null)
-            mOnThumbUp.like((Boolean) getTag());
+            mOnThumbUp.like((Boolean)    getSearchView().getTag(mTagKey));
 
 
     }
@@ -544,10 +565,10 @@ public class ThumbUpView extends View {
             if (Math.abs(event.getX() - startX) < 5 &&
                     Math.abs(event.getY() - startY) < 5) {
                 if (rectFloveBg.contains(event.getX(), event.getY())) {
-                    if (getTag() == null || !(Boolean) getTag()) {
+                    if (   getSearchView().getTag(mTagKey) == null || !(Boolean)    getSearchView().getTag(mTagKey)) {
                         startLikeAnim(LikeType.like);
 
-                    } else if ((Boolean) getTag()) {
+                    } else if ((Boolean)    getSearchView().getTag(mTagKey)) {
 
                         if (mUnLikeType == LikeType.broken) {
                             startLikeAnim(LikeType.broken);
@@ -577,6 +598,27 @@ public class ThumbUpView extends View {
     public interface OnThumbUp {
         void like(boolean like);
     }
+
+
+    public void  setLikeWithOutAnim()
+    {
+        mAnimatedLikeValue=MaxSize;
+        mAnimatedBrokenValue=0f;
+        getSearchView().setTag(mTagKey,true);
+        invalidate();
+
+    }
+
+    public void setUnlikeWithOutAnim()
+    {
+        mAnimatedLikeValue=0f;
+        mAnimatedBrokenValue=0f;
+        getSearchView().setTag(mTagKey,false);
+
+        invalidate();
+    }
+
+
 
 
 }
