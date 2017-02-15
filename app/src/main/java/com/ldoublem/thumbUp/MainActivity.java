@@ -1,6 +1,7 @@
 package com.ldoublem.thumbUp;
 
 import android.graphics.Color;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,10 +19,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        String s = "";
+//        for (long i = 8820501; i <= 8821000; i++) {
+//            s = s + String.valueOf(i) + ",";
+//
+//        }
+//        System.out.println("---" + s);
+
         tpv1 = (ThumbUpView) findViewById(R.id.tpv1);
         tpv2 = (ThumbUpView) findViewById(R.id.tpv2);
         tpv3 = (ThumbUpView) findViewById(R.id.tpv3);
-
+        tpv1.setLike();
         tv1 = (TextView) findViewById(R.id.tv1);
         tv2 = (TextView) findViewById(R.id.tv2);
         tv3 = (TextView) findViewById(R.id.tv3);
@@ -31,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         tpv3.setCracksColor(Color.WHITE);
         tpv3.setFillColor(Color.rgb(11, 200, 77));
         tpv3.setEdgeColor(Color.rgb(33, 3, 219));
+//        tpv3.setBgColor(Color.RED);
         tpv3.setOnThumbUp(new ThumbUpView.OnThumbUp() {
             @Override
             public void like(boolean like) {
@@ -69,22 +79,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    public void like(View v)
-    {
+
+    public void like(View v) {
         tpv1.Like();
         tpv2.Like();
         tpv3.Like();
 
     }
 
-    public void unlike(View v)
-    {
+    public void unlike(View v) {
         tpv1.UnLike();
         tpv2.UnLike();
         tpv3.UnLike();
     }
-
-
 
 
 }

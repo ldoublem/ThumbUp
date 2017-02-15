@@ -34,7 +34,7 @@ dependencies {
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "0.3"
+version = "0.5"
 def siteUrl = 'https://github.com/ldoublem/ThumbUp'    // project homepage
 def gitUrl = 'https://github.com/ldoublem/ThumbUp.git' // project git
 group = "com.ldoublem.thumbUplib"

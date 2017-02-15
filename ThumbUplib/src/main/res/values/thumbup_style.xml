@@ -5,6 +5,7 @@
         <attr name="edgeColor" format="color|reference"></attr>
         <attr name="fillColor" format="color|reference"></attr>
         <attr name="cracksColor" format="color|reference"></attr>
+        <attr name="bgColor" format="color|reference"></attr>
 
 
         <attr name="unlikeType" format="integer"></attr>

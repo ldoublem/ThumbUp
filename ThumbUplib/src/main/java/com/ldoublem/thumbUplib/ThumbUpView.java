@@ -26,8 +26,12 @@ public class ThumbUpView extends View {
 
 
     private Paint mPaint;
+
+    private Paint mPaintbg;
+
+
     private Paint mPaintLike;
-    private int mTagKey ;
+    private int mTagKey;
     private Paint mPaintBrokenLine;
 
     private RectF rectFBg;
@@ -38,6 +42,7 @@ public class ThumbUpView extends View {
     private int edgeColor = Color.BLACK;
     private int fillColor = Color.rgb(229, 115, 108);
     private int cracksColor = Color.WHITE;
+    private int bgColor = Color.WHITE;
 
     private Bitmap mBitmapBrokenLeftLove = null;
     private Bitmap mBitmapBrokenRightLove = null;
@@ -50,8 +55,6 @@ public class ThumbUpView extends View {
     float MaxSize = 1.2f;
 
 
-
-
     private WeakReference<View> mThumbUpView;
 
     public void setSearchView(View searchView) {
@@ -61,7 +64,6 @@ public class ThumbUpView extends View {
     public View getSearchView() {
         return mThumbUpView != null ? mThumbUpView.get() : null;
     }
-
 
 
     public void setUnLikeType(LikeType type) {
@@ -85,6 +87,11 @@ public class ThumbUpView extends View {
         this.mOnThumbUp = onThumbUp;
     }
 
+    public void setBgColor(int color) {
+        this.bgColor = color;
+    }
+
+
 
     public ThumbUpView(Context context) {
         this(context, null);
@@ -106,6 +113,8 @@ public class ThumbUpView extends View {
             edgeColor = typedArray.getColor(R.styleable.ThumbUpView_edgeColor, edgeColor);
             fillColor = typedArray.getColor(R.styleable.ThumbUpView_fillColor, fillColor);
             cracksColor = typedArray.getColor(R.styleable.ThumbUpView_cracksColor, cracksColor);
+            bgColor = typedArray.getColor(R.styleable.ThumbUpView_bgColor, bgColor);
+
             int type = typedArray.getInteger(R.styleable.ThumbUpView_unlikeType, 0);
 
             if (type == 0) {
@@ -125,12 +134,16 @@ public class ThumbUpView extends View {
 
     private void initPaint() {
 
-        mTagKey=getId();
+        mTagKey = getId();
         setSearchView(this);
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
 
         mPaint.setStyle(Paint.Style.STROKE);
+
+        mPaintbg = new Paint();
+        mPaintbg.setAntiAlias(true);
+        mPaintbg.setStyle(Paint.Style.FILL);
 
 
         mPaintLike = new Paint();
@@ -214,6 +227,10 @@ public class ThumbUpView extends View {
                 (float) (realWidth - 0.15 * realWidth) + rectFlove.left, (float) (-0.35 * realHeight) + rectFlove.top,
                 (float) (0.5 * realWidth) + rectFlove.left, (float) (startYScale * realHeight) + rectFlove.top);
         path.close();
+
+
+        canvas.drawPath(path, mPaintbg);
+
         canvas.drawPath(path, mPaint);
     }
 
@@ -360,7 +377,7 @@ public class ThumbUpView extends View {
         mPaint.setColor(edgeColor);
         mPaintLike.setColor(fillColor);
         mPaintBrokenLine.setColor(cracksColor);
-
+        mPaintbg.setColor(bgColor);
         rectFBg = new RectF(0, 0,
                 getMeasuredWidth(),
                 getMeasuredHeight());
@@ -483,7 +500,7 @@ public class ThumbUpView extends View {
             startViewAnim(0f, 1f, 400, like);
         }
         if (mOnThumbUp != null)
-            mOnThumbUp.like((Boolean)    getSearchView().getTag(mTagKey));
+            mOnThumbUp.like((Boolean) getSearchView().getTag(mTagKey));
 
 
     }
@@ -507,7 +524,7 @@ public class ThumbUpView extends View {
         valueAnimator = ValueAnimator.ofFloat(startF, endF);
         valueAnimator.setDuration(time);
         valueAnimator.setInterpolator(new LinearInterpolator());
-        valueAnimator.setRepeatCount(0);//无限循环
+        valueAnimator.setRepeatCount(0);
         valueAnimator.setRepeatMode(ValueAnimator.RESTART);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -565,10 +582,10 @@ public class ThumbUpView extends View {
             if (Math.abs(event.getX() - startX) < 5 &&
                     Math.abs(event.getY() - startY) < 5) {
                 if (rectFloveBg.contains(event.getX(), event.getY())) {
-                    if (   getSearchView().getTag(mTagKey) == null || !(Boolean)    getSearchView().getTag(mTagKey)) {
+                    if (getSearchView().getTag(mTagKey) == null || !(Boolean) getSearchView().getTag(mTagKey)) {
                         startLikeAnim(LikeType.like);
 
-                    } else if ((Boolean)    getSearchView().getTag(mTagKey)) {
+                    } else if ((Boolean) getSearchView().getTag(mTagKey)) {
 
                         if (mUnLikeType == LikeType.broken) {
                             startLikeAnim(LikeType.broken);
@@ -600,25 +617,21 @@ public class ThumbUpView extends View {
     }
 
 
-    public void  setLike()
-    {
-        mAnimatedLikeValue=MaxSize;
-        mAnimatedBrokenValue=0f;
-        getSearchView().setTag(mTagKey,true);
+    public void setLike() {
+        mAnimatedLikeValue = MaxSize;
+        mAnimatedBrokenValue = 0f;
+        getSearchView().setTag(mTagKey, true);
         invalidate();
 
     }
 
-    public void setUnlike()
-    {
-        mAnimatedLikeValue=0f;
-        mAnimatedBrokenValue=0f;
-        getSearchView().setTag(mTagKey,false);
+    public void setUnlike() {
+        mAnimatedLikeValue = 0f;
+        mAnimatedBrokenValue = 0f;
+        getSearchView().setTag(mTagKey, false);
 
         invalidate();
     }
-
-
 
 
 }
